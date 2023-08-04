@@ -27,4 +27,9 @@ RUN cd /tmp/fluentd-modsecurity && \
     rm -rf *.zip
 
 COPY config /home/fluent/config
+
+# upgrade database GeoIP
+RUN rm /usr/local/bundle/gems/fluent-plugin-geoip-1.3.2/data/GeoLite2-City.mmdb
+COPY GeoLite2-City.mmdb /usr/local/bundle/gems/fluent-plugin-geoip-1.3.2/data/GeoLite2-City.mmdb
+
 CMD ["fluentd", "-c", "/home/fluent/config/fluent.conf"]
